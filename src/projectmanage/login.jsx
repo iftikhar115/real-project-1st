@@ -10,7 +10,7 @@ function Login() {
     const navigation = useNavigate()
 
 useEffect(()=> {
-    axios.get('/api/login')
+    axios.get('https://localshot:5000/api/login')
     .then((response) => {
         if(response.data && response.data.length > 0 ) {
             setLoggedin(response.data[0])
