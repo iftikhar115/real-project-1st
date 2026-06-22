@@ -23,7 +23,7 @@ function Slidebar() {
             <div className="sidebar-logo">
                 <h2>🏗️ IHR BuildTrack</h2>
             </div>
-            
+
             <nav className="sidebar-nav">
                 <Link to="/" className="nav-item">
                     <span className="nav-icon">🏠</span>

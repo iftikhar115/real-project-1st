@@ -10,13 +10,15 @@ function Home() {
         activeProjects: 3
     });
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     useEffect(() => {
         const fetchStats = async () => {
             try {
                 const [materials, workers, expenses] = await Promise.all([
-                    axios.get('/api/materials'),
-                    axios.get('/api/worker'),
-                    axios.get('/api/expenses')
+                    axios.get(`${API_URL}/api/materials`),
+                    axios.get(`${API_URL}/api/workeRS`),
+                    axios.get(`${API_URL}/api/expenses`)
                 ]);
 
                 setStats({

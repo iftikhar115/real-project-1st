@@ -5,22 +5,24 @@ function Timeline() {
     const [phases, setPhases] = useState([])
     const [form, setForm] = useState({ phaseName: '', startDate: '', endDate: '', status: 'Pending' })
 
+    const API_URL = import.meta.env.VITE_API_URL;
+
     useEffect(() => {
-        axios.get('/api/timeline')
+        axios.get(`${API_URL}/api/timeline`)
             .then(resp => setPhases(resp.data))
             .catch(() => console.log('Server not running'))
     }, [])
 
     const addPhase = async (e) => {
         e.preventDefault()
-        await axios.post('/api/timeline', { ...form })
-        const resp = await axios.get('/api/timeline')
+        await axios.post(`${API_URL}/api/timeline`, { ...form })
+        const resp = await axios.get(`${API_URL}/api/timeline`)
         setPhases(resp.data)
         setForm({ phaseName: '', startDate: '', endDate: '', status: 'Pending' })
     }
 
     const deletePhase = async (id) => {
-        await axios.delete(`/api/timeline/${id}`)
+        await axios.delete(`${API_URL}/api/timeline/${id}`)
         setPhases(phases.filter(phase => phase.id !== id))
     }
 
@@ -28,13 +30,13 @@ function Timeline() {
         <>
             <h1>📅 Project Timeline</h1>
             <div className="form-container">
-                <input type="text" placeholder="Phase Name" value={form.phaseName} 
-                    onChange={(e) => setForm({...form, phaseName: e.target.value})} />
-                <input type="date" value={form.startDate} 
-                    onChange={(e) => setForm({...form, startDate: e.target.value})} />
-                <input type="date" value={form.endDate} 
-                    onChange={(e) => setForm({...form, endDate: e.target.value})} />
-                <select value={form.status} onChange={(e) => setForm({...form, status: e.target.value})}>
+                <input type="text" placeholder="Phase Name" value={form.phaseName}
+                    onChange={(e) => setForm({ ...form, phaseName: e.target.value })} />
+                <input type="date" value={form.startDate}
+                    onChange={(e) => setForm({ ...form, startDate: e.target.value })} />
+                <input type="date" value={form.endDate}
+                    onChange={(e) => setForm({ ...form, endDate: e.target.value })} />
+                <select value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value })}>
                     <option value="Pending">Pending</option>
                     <option value="In Progress">In Progress</option>
                     <option value="Completed">Completed</option>
